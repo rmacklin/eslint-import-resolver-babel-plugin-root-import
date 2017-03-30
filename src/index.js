@@ -114,7 +114,7 @@ exports.resolve = (source, file, config, babelrc) => {
         const prefix = option.rootPathPrefix;
         const suffix = option.rootPathSuffix;
         if (hasRootPathPrefixInString(source, option.rootPathPrefix)) {
-            transformedSource = transformRelativeToRootPath(source, suffix, prefix);
+            transformedSource = transformRelativeToRootPath(source, suffix, prefix, file);
             break;
         }
     }
