@@ -99,7 +99,7 @@ exports.resolve = (source, file, config, babelrc) => {
 
         let rootPathSuffix = '';
         if (opts.rootPathSuffix && typeof opts.rootPathSuffix === 'string') {
-            rootPathSuffix = `/${opts.rootPathSuffix.replace(/^(\/)|(\/)$/g, '')}`;
+            rootPathSuffix = opts.rootPathSuffix;
         }
 
         rootPathConfig.push({
