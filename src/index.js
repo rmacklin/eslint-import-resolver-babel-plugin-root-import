@@ -5,7 +5,7 @@ const JSON5 = require('json5');
 const nodeResolve = require('eslint-import-resolver-node').resolve;
 
 /* eslint-disable no-console */
-const babelRootImport = require('babel-root-import/build/helper.js');
+const babelRootImport = require('babel-plugin-root-import/build/helper.js');
 
 // newer version of babel root import exports the 2 functions
 // but older versions exported a class
