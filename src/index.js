@@ -24,38 +24,6 @@ if (babelRootImport.default) {
     transformRelativeToRootPath = transformRelativeToRootPath.bind(babelRootImportObj);
 }
 
-// returns the root import config as an object
-function getConfigFromBabel(start, babelrc = '.babelrc') {
-    if (start === '/') return [];
-
-    const packageJSONPath = path.join(start, 'package.json');
-    const packageJSON = require(packageJSONPath);
-    const babelConfig = packageJSON.babel;
-    if (babelConfig) {
-        const pluginConfig = babelConfig.plugins.find(p => (
-            p[0] === 'root-import' || p[0] === 'babel-plugin-root-import'
-        ));
-        process.chdir(path.dirname(packageJSONPath));
-        return pluginConfig[1];
-    }
-
-    const babelrcPath = path.join(start, babelrc);
-    if (fs.existsSync(babelrcPath)) {
-        const babelrcJson = JSON5.parse(fs.readFileSync(babelrcPath, 'utf8'));
-        if (babelrcJson && Array.isArray(babelrcJson.plugins)) {
-            const pluginConfig = babelrcJson.plugins.find(p => (
-                p[0] === 'root-import' || p[0] === 'babel-plugin-root-import'
-            ));
-            // The src path inside babelrc are from the root so we have
-            // to change the working directory for the same directory
-            // to make the mapping to work properly
-            process.chdir(path.dirname(babelrcPath));
-            return pluginConfig[1];
-        }
-    }
-    return getConfigFromBabel(path.dirname(start));
-}
-
 exports.interfaceVersion = 2;
 
 /**
@@ -69,7 +37,7 @@ exports.interfaceVersion = 2;
  * @return {object}
  */
 exports.resolve = (source, file, config, babelrc) => {
-    const opts = getConfigFromBabel(process.cwd(), babelrc);
+    const opts = config;
 
     // [{rootPathPrefix: rootPathSuffix}]
     const rootPathConfig = [];
