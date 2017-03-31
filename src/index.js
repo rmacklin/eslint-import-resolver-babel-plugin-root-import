@@ -33,10 +33,9 @@ exports.interfaceVersion = 2;
  * @param  {string} source - the module to resolve; i.e './some-module'
  * @param  {string} file - the importing file's full path; i.e. '/usr/local/bin/file.js'
  * @param  {object} config - the resolver options
- * @param  {string} babelrc - the name of the babelrc file
  * @return {object}
  */
-exports.resolve = (source, file, config, babelrc) => {
+exports.resolve = (source, file, config) => {
     const opts = config;
 
     // [{rootPathPrefix: rootPathSuffix}]
